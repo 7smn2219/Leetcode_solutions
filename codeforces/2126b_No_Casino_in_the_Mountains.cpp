@@ -6,25 +6,21 @@ using namespace std;
 void solve() {
     int n, k;
     cin >> n >> k;
-    vector<int> a(n);
-    for(auto &r : a)cin >> r;
-
-    int ans=0;
+    vector<int>a(n);
+    for(auto &i:a)cin >> i ;
+    int ans = 0;
     int cnt = 0;
-
-    for(int i=1; i<= n; i++){
-        if(a[i] == 1){
-            ans += (cnt + 1)/(k + 1); // Calculate the number of hikes possible in the current segment
-            cnt = 0;
-            continue;
-        }
-        else{
-            cnt++;
-        }
+    
+    for(int i = 0; i < n; i++){
+    	if(a[i]==1){
+	    ans += (cnt+1)/(k+1);
+	    cnt = 0;
+	    continue;
+	}
+	else cnt++;
     }
-    ans += (cnt + 1)/(k + 1);
+    ans += (cnt+1)/(k+1);
     cout << ans << endl;
-    return;
 }
 
 int main() {
