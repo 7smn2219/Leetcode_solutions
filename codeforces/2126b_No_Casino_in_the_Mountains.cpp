@@ -3,23 +3,37 @@ using namespace std;
 #define ll long long
 #define mod 1000000007
 
+/* Key observation
+ * Inside one block of length `len` (all zeros) we must place patterns of 
+ * `k` good days (the hike) plus one mandatory rest day after each hike 
+ * except the last. Thus each hike consumes `k` + 1 slots, except 
+ * the final one, which does not need a trailing rest day.
+ *
+ * Therefore, the maximum number of hikes in one block is
+ * 	hikes_in_block = floor((`len` + 1)/(`k` + 1))
+ *
+ * Intuition: 	Add an imaginary rest day to the end of the block, 
+ * 		then just cut the segment into chunks of size k + 1
+ */
+
 void solve() {
     int n, k;
     cin >> n >> k;
-    vector<int>a(n);
-    for(auto &i:a)cin >> i ;
-    int ans = 0;
-    int cnt = 0;
-    
-    for(int i = 0; i < n; i++){
-    	if(a[i]==1){
-	    ans += (cnt+1)/(k+1);
-	    cnt = 0;
-	    continue;
-	}
-	else cnt++;
+    vector<int> a(n + 1);
+    for (int i=1; i<=n; i++) cin >> a[i];
+
+    int ans = 0, cnt = 0;
+    for (int i=1; i<=n; i++){
+	    if (a[i] == 1){
+		    ans += (cnt + 1)/(k+1);
+		    cnt = 0;
+		    continue;
+	    }
+	    else cnt++;
     }
-    ans += (cnt+1)/(k+1);
+    ans += (cnt + 1)/(k+1);
+
+
     cout << ans << endl;
 }
 
